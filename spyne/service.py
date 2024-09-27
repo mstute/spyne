@@ -21,10 +21,10 @@
 This module contains the :class:`Service` class and its helper objects.
 """
 
+from collections.abc import Sequence
 import logging
 logger = logging.getLogger(__name__)
 
-from spyne.util.six.moves.collections_abc import Sequence
 
 from spyne.evmgr import EventManager
 from spyne.util import six
