@@ -19,7 +19,6 @@
 
 from __future__ import print_function
 
-from spyne.util.six.moves.collections_abc import Iterable as AbcIterable
 import logging
 logger = logging.getLogger(__name__)
 
@@ -28,6 +27,7 @@ RE_HTTP_ARRAY_INDEX = re.compile("\\[([0-9]+)\\]")
 
 from mmap import mmap
 from collections import defaultdict
+from collections.abc import Iterable as AbcIterable
 
 from spyne.util import six
 
