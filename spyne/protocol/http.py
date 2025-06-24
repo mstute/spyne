@@ -390,8 +390,8 @@ _fragment_pattern_re = re.compile('<([A-Za-z0-9_]+)>')
 _full_pattern_re = re.compile('{([A-Za-z0-9_]+)}')
 
 
-_fragment_pattern_b_re = re.compile(b'<([A-Za-z0-9_]+)>')
-_full_pattern_b_re = re.compile(b'{([A-Za-z0-9_]+)}')
+_fragment_pattern_b_re = re.compile(r'<([A-Za-z0-9_]+)>')
+_full_pattern_b_re = re.compile(r'{([A-Za-z0-9_]+)}')
 
 
 class HttpPattern(object):
@@ -419,8 +419,8 @@ class HttpPattern(object):
         pattern = _full_pattern_re.sub(r'(?P<\1>[^/]*)', pattern)
 
         pattern_b = pattern_s.encode(cls.URL_ENCODING)
-        pattern_b = _fragment_pattern_b_re.sub(b'(?P<\\1>[^/]*)', pattern_b)
-        pattern_b = _full_pattern_b_re.sub(b'(?P<\\1>[^/]*)', pattern_b)
+        pattern_b = _fragment_pattern_b_re.sub(r'(?P<\\1>[^/]*)', pattern_b)
+        pattern_b = _full_pattern_b_re.sub(r'(?P<\\1>[^/]*)', pattern_b)
 
         return re.compile(pattern), re.compile(pattern_b)
 
@@ -435,8 +435,8 @@ class HttpPattern(object):
         pattern = _full_pattern_re.sub(r'(?P<\1>.*)', pattern)
 
         pattern_b = pattern.encode(cls.HOST_ENCODING)
-        pattern_b = _fragment_pattern_b_re.sub(b'(?P<\\1>[^\.]*)', pattern_b)
-        pattern_b = _full_pattern_b_re.sub(b'(?P<\\1>.*)', pattern_b)
+        pattern_b = _fragment_pattern_b_re.sub(r'(?P<\\1>[^\.]*)', pattern_b)
+        pattern_b = _full_pattern_b_re.sub(r'(?P<\\1>.*)', pattern_b)
 
         return re.compile(pattern), re.compile(pattern_b)
 
@@ -451,8 +451,8 @@ class HttpPattern(object):
         pattern = _full_pattern_re.sub(r'(?P<\1>.*)', pattern)
 
         pattern_b = pattern.encode(cls.VERB_ENCODING)
-        pattern_b = _fragment_pattern_b_re.sub(b'(?P<\\1>.*)', pattern_b)
-        pattern_b = _full_pattern_b_re.sub(b'(?P<\\1>.*)', pattern_b)
+        pattern_b = _fragment_pattern_b_re.sub(r'(?P<\\1>.*)', pattern_b)
+        pattern_b = _full_pattern_b_re.sub(r'(?P<\\1>.*)', pattern_b)
 
         return re.compile(pattern), re.compile(pattern_b)
 
