@@ -17,7 +17,8 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 #
 import logging
-
+import sys
+sys.set_int_max_str_digits(0)
 
 zeep_logger = logging.getLogger('zeep')
 zeep_logger.setLevel(logging.INFO)

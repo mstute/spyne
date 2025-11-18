@@ -1,4 +1,3 @@
-
 #
 # spyne - Copyright (C) Spyne contributors.
 #
@@ -44,7 +43,6 @@ from sqlalchemy.dialects.postgresql import DOUBLE_PRECISION
 from sqlalchemy.dialects.postgresql.base import PGUuid, PGInet
 
 from sqlalchemy.orm import relationship
-from sqlalchemy.orm import mapper
 from sqlalchemy.ext.associationproxy import association_proxy
 
 # TODO: find the latest way of checking whether a class is already mapped
@@ -87,6 +85,11 @@ from spyne.model import SimpleModel, Enum, Array, ComplexModelBase, \
 
 from spyne.util import sanitize_args
 
+if int(sqlalchemy.__version__.split('.')[0]) < 2:
+    from sqlalchemy.orm import mapper
+else:
+    from sqlalchemy.orm import registry
+    mapper = registry().map_imperatively
 
 # Inheritance type constants.
 class _SINGLE:
@@ -582,10 +585,11 @@ def _gen_array_m2m(cls, props, subname, arrser, storage):
     rel_kwargs = dict(
         lazy=storage.lazy,
         backref=storage.backref,
-        cascade=storage.cascade,
         order_by=storage.order_by,
         back_populates=storage.back_populates,
     )
+    if storage.cascade:  # sqla >=2 doesn't accept False
+        rel_kwargs['cascade'] = cascade
 
     if storage.explicit_join:
         # Specify primaryjoin and secondaryjoin when requested.
@@ -753,11 +757,12 @@ def _gen_array_o2m(cls, props, subname, arrser, arrser_cust, storage):
     rel_kwargs = dict(
         lazy=storage.lazy,
         backref=storage.backref,
-        cascade=storage.cascade,
         order_by=storage.order_by,
         foreign_keys=[col],
         back_populates=storage.back_populates,
     )
+    if storage.cascade:  # sqla >=2 doesn't accept False
+        rel_kwargs['cascade'] = cascade
 
     if storage.single_parent is not None:
         rel_kwargs['single_parent'] = storage.single_parent

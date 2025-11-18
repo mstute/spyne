@@ -20,7 +20,8 @@
 import logging
 suds_logger = logging.getLogger('suds')
 suds_logger.setLevel(logging.INFO)
-
+import sys
+sys.set_int_max_str_digits(0)
 import unittest
 
 from datetime import datetime
@@ -46,7 +47,6 @@ class LastReceivedPlugin(MessagePlugin):
 class TestSuds(SpyneClientTestBase, unittest.TestCase):
     def setUp(self):
         SpyneClientTestBase.setUp(self, 'http')
-
         port, = server_started.keys()
 
         self.client = Client("http://localhost:%d/?wsdl" % port, cache=None,
