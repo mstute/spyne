@@ -21,5 +21,3 @@ DJANGO_SETTINGS_MODULE=rpctest.settings PYTHONPATH=.:examples/django pytest --di
         spyne/test/transport/ \
         spyne/test/util/ \
         spyne/test/test_sqlalchemy.py
-# spyne/test/interop/test_soap_client_zeromq.py
-# spyne/test/interop/test_msgpackrpc_client_http.py
