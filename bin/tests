@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+DJANGO_SETTINGS_MODULE=rpctest.settings PYTHONPATH=.:examples/django pytest --dist worksteal -vv $@ \
+    --cov=spyne --cov-report=term\
+        spyne/test/interop/test_suds.py \
+        spyne/test/interop/test_zeep.py \
+        spyne/test/interface/*.py \
+        spyne/test/interop/test_httprpc.py \
+        spyne/test/interop/test_django.py \
+        spyne/test/interop/test_httprpc.py \
+        spyne/test/interop/test_pyramid.py \
+        spyne/test/interop/test_soap_client_http_twisted.py \
+        spyne/test/interop/test_soap_client_http.py \
+        spyne/test/interop/test_wsi.py \
+        spyne/test/model/*.py \
+        spyne/test/multipython/ \
+        spyne/test/protocol/*.py \
+        spyne/test/test_null_server.py \
+        spyne/test/test_service.py \
+        spyne/test/test_soft_validation.py \
+        spyne/test/transport/ \
+        spyne/test/util/ \
+        spyne/test/test_sqlalchemy.py
+# spyne/test/interop/test_soap_client_zeromq.py
+# spyne/test/interop/test_msgpackrpc_client_http.py
